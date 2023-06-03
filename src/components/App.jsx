@@ -12,10 +12,9 @@ export class App extends Component {
     bad: 0,
   };
 
-  onButtonClick = evt => {
-    const { name } = evt.target;
+  onButtonClick = option => {
     this.setState(prevState => {
-      return { [name]: (prevState[name] += 1) };
+      return { [option]: (prevState[option] += 1) };
     });
   };
 
@@ -30,6 +29,7 @@ export class App extends Component {
   }
 
   render() {
+    const total = this.countTotalFeedback();
     return (
       <>
         <Section title="Please leave feedback">
@@ -39,12 +39,12 @@ export class App extends Component {
           />
         </Section>
         <Section title="Statistics">
-          {this.countTotalFeedback() > 0 ? (
+          {total > 0 ? (
             <Statistics
               good={this.state.good}
               neutral={this.state.neutral}
               bad={this.state.bad}
-              total={this.countTotalFeedback()}
+              total={total}
               positivePercentage={this.countPositiveFeedbackPercentage()}
             />
           ) : (
